@@ -6,7 +6,7 @@ try:
     r = requests.get('http://192.168.10.25:8088/ari/endpoints', auth=('hey', 'user'))
 except requests.exceptions.ConnectionError:
     print('\nConnection error !')
-    sys.exit(13)
+    sys.exit(1)
 # print(dir(r))
 # print(r.json()[0])
 # print r.status_code
