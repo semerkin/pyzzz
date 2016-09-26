@@ -8,7 +8,7 @@ from asterisk.ami import AMIClient
 
 
 def event_notification(source, event):
-    os.system('notify-send "%s" "%s"' % (event.name, str(event)))
+    print '%s -> %s' % (event.name, str(event))
 
 
 host = '127.0.0.1'
