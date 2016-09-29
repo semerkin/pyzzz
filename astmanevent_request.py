@@ -3,6 +3,7 @@
 import sys
 import os
 import time
+import datetime
 import requests
 
 from asterisk.ami import AMIClient
@@ -11,10 +12,10 @@ from asterisk.ami import AMIClient
 def event_notification(source, event):
     try:
         strevent = str(event)
-        r = requests.post('http://IP/DEST', auth=('USER', 'PASS'), data=strevent)
+        r = requests.post('http://IP/DEST', auth=('USER', 'PASS'), data={'event' : strevent})
         print r.status_code # это потом закоментить
     except:
-        print '\nConnection problem !'
+        print '\n problem !!!!'
         sys.exit(13)
     print event.name + ' ---> ' + strevent + '\n' # это потом закоментить
 
