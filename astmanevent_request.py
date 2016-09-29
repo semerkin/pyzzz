@@ -1,9 +1,6 @@
-# pip install asterisk-ami
-
 import sys
-import os
 import time
-import datetime
+# import datetime
 import requests
 
 from asterisk.ami import AMIClient
@@ -12,14 +9,14 @@ from asterisk.ami import AMIClient
 def event_notification(source, event):
     try:
         strevent = str(event)
-        r = requests.post('http://IP/DEST', auth=('USER', 'PASS'), data={'event' : strevent})
-        print r.status_code # это потом закоментить
-    except:
+        r = requests.post('http://IP/DEST', auth=('USER', 'PASS'), 
+                          headers={'content-type': 'application/json'},
+                          data={'event': strevent})
+        print r.status_code     # это in production закоментить
+    except Exception:
         print '\n problem !!!!'
         sys.exit(13)
-    print event.name + ' ---> ' + strevent + '\n' # это потом закоментить
-
-
+    print event.name + ' -------> ' + strevent + '\n'    # это in production закоментить
 
 host = '127.0.0.1'
 user = 'hey'
@@ -36,4 +33,5 @@ try:
     while True:
         time.sleep(10)
 except (KeyboardInterrupt, SystemExit):
-client.logoff()
+    client.logoff()
+
