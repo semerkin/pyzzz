@@ -7,18 +7,15 @@ try:
 except requests.exceptions.ConnectionError as e:
     print '\nConnection error:', e
     sys.exit(13)
-try:
-    r.raise_for_status()
-except requests.exceptions.HTTPError as e:
-    print '\nERROR:', e
-    sys.exit(13)
+if r.status_code != 200:
+    try:
+        r.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        print '\nERROR:', e
+        sys.exit(13)
 
 # print r.status_code
 # print r.text
-if r.status_code != 200:
-    print 'error in result code !! ->', r.status_code
-    # raise Exception('warning 1')
-    sys.exit(13)
 
 event_json = json.loads(r.text)
 
