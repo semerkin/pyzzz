@@ -3,23 +3,21 @@ import sys
 import requests
 
 try:
-    r = requests.get('http://192.168.10.25:8088/ari/endpoints', auth=('hey', 'user'))
+    r = requests.get('http://192.168.10.25:8088/ari/endpoints', auth=('hey', 'user9'))
 except requests.exceptions.ConnectionError as conerr:
     print('\nConnection error ! ', conerr)
     sys.exit(13)
-try:
-    r.raise_for_status()
-except requests.exceptions.HTTPError as e:
-    print('ERROR: %s' % e)
-    sys.exit(13)
+if r.status_code != 200:
+    try:
+        r.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        print('ERROR: %s' % e)
+        sys.exit(13)
 
 # print(dir(r))
 # print(r.json()[0])
 # print r.status_code
 # print r.text
-if r.status_code != 200:
-    print('\nerror in result code !!')
-    sys.exit(13)
 
 event_json = json.loads(r.text)
 
