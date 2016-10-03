@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import sys
-import time
-# import datetime
+from time import strftime
 import requests
 
 from asterisk.ami import AMIClient
@@ -11,9 +10,10 @@ from asterisk.ami import AMIClient
 def event_notification(source, event):
     try:
         strevent = str(event)
-        r = requests.post('http://IP/DEST', auth=('USER', 'PASS'), 
+        r = requests.post('http://IP/DEST', auth=('USER', 'PASS'),
                           headers={'content-type': 'application/json'},
-                          data={'event': strevent})
+                          data={'evtime': strftime("%Y-%m-%d %H:%M:%S"),
+                                'event': strevent})
         print r.status_code     # это in production закоментить
     except Exception:
         print '\n problem !!!!'
@@ -36,4 +36,5 @@ try:
         time.sleep(10)
 except (KeyboardInterrupt, SystemExit):
     client.logoff()
+
 
