@@ -34,6 +34,10 @@ def event_notification(source, event):
                 sys.exit(13)
         # тут уже однозначно r.status_code == 200
         print r.status_code
+        if r:
+            r.close()
+    else:
+        return
 
 
 host = '127.0.0.1'
@@ -52,5 +56,3 @@ try:
         sleep(10)
 except (KeyboardInterrupt, SystemExit):
     client.logoff()
-
-
