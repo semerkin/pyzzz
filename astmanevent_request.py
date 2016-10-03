@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import sys
-from time import strftime
+from time import strftime, sleep
 import requests
 
 from asterisk.ami import AMIClient
@@ -33,7 +33,7 @@ client.add_event_listener(event_notification)
 
 try:
     while True:
-        time.sleep(10)
+        sleep(10)
 except (KeyboardInterrupt, SystemExit):
     client.logoff()
 
