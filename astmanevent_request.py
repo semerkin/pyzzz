@@ -6,19 +6,25 @@ import requests
 
 from asterisk.ami import AMIClient
 
+evlist = ['Newstate',
+          'Newchannel',
+          'SoftHangupRequest']
+
 
 def event_notification(source, event):
     try:
-        strevent = str(event)
-        r = requests.post('http://IP/DEST', auth=('USER', 'PASS'),
-                          headers={'content-type': 'application/json'},
-                          data={'evtime': strftime("%Y-%m-%d %H:%M:%S"),
-                                'event': strevent})
+        if event.name in evlist:
+            strevent = str(event)
+            r = requests.post('http://IP/DEST', auth=('USER', 'PASS'),
+                              headers={'content-type': 'application/json'},
+                              data={'evtime': strftime("%Y-%m-%d %H:%M:%S"),
+                                    'event': strevent})
         print r.status_code     # это in production закоментить
+        print event.name + ' -------> ' + strevent + '\n'    # это in production закоментить
     except Exception:
         print '\n problem !!!!'
         sys.exit(13)
-    print event.name + ' -------> ' + strevent + '\n'    # это in production закоментить
+    
 
 host = '127.0.0.1'
 user = 'hey'
