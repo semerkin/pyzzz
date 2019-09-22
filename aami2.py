@@ -1,7 +1,7 @@
 import socket
 
 username = 'se'
-password = '11211121'
+password = '1121'
 """ Initialize the dictionary in the global space """
 
 
